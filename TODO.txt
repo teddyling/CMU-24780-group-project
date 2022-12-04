@@ -1,0 +1,11 @@
+Map : 
+    item generation
+    multi map pattern
+
+UI:
+    real time status bar
+    Sound effect
+
+Parameter optimization
+
+Sound effect;
