@@ -167,7 +167,13 @@ void PreGameUI::drawButton()
 	colorRight2p->draw(224, 224, 224);
 	mapLeft->draw(224, 224, 224);
 	mapRight->draw(224, 224, 224);
-	fight->draw(255, 128, 0);
+	if (isSameColor) {
+		fight->draw(160, 160, 160);
+	}
+	else {
+		fight->draw(255, 128, 0);
+	}
+
 }
 void PreGameUI::drawBlock()
 {
@@ -344,6 +350,9 @@ int PreGameUI::checkProceed(int lb, int mb, int rb, int mx, int my, int mouseEve
 {
 	if (colorChose1p == colorChose2p) {
 		isSameColor = true;
+	}
+	else {
+		isSameColor = false;
 	}
 	if (fight->checkButtonClick(lb, mb, rb, mx, my, mouseEvent) && !isSameColor)
 	{
