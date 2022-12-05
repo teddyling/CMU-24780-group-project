@@ -342,7 +342,10 @@ void PreGameUI::checkButtonClick(int lb, int mb, int rb, int mx, int my, int mou
 }
 int PreGameUI::checkProceed(int lb, int mb, int rb, int mx, int my, int mouseEvent)
 {
-	if (fight->checkButtonClick(lb, mb, rb, mx, my, mouseEvent))
+	if (colorChose1p == colorChose2p) {
+		isSameColor = true;
+	}
+	if (fight->checkButtonClick(lb, mb, rb, mx, my, mouseEvent) && !isSameColor)
 	{
 		return 1;
 	}

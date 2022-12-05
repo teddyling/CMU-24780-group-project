@@ -39,6 +39,7 @@ public:
 	int weaponChose1p = 0;
 	int weaponChose2p = 0;
 	int mapChose = 0;
+	bool isSameColor = false;
 	Button* weaponLeft1p = new Button(50, 180, 40, 60);
 	Button* weaponRight1p = new Button(290, 180, 40, 60);
 	Button* weaponLeft2p = new Button(450, 180, 40, 60);
@@ -51,7 +52,7 @@ public:
 	Button* mapRight = new Button(510, 570, 40, 60);
 	Button* fight = new Button(290, 700, 240, 70);
 	string weaponChoices[4] = { "Shotgun", "Sniper", "Grenade"};
-	string colorChoices[6] = { "Red", "Orange", "Yellow","Green", "Blue", "Purple" };
+	string colorChoices[6] = { "Red", "SkyBlue", "Yellow","Green", "Blue", "Purple" };
 	string mapChoices[4] = { "1", "2", "3" };
 	PreGameUI() {};
 	void drawBackGround();
