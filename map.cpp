@@ -103,13 +103,15 @@ Map::Map(int w, int h, int p)
 
 void Map::load_pattern(int p)
 {
-//    string base_path = "patterns/map";
-//    base_path.append(to_string(p));
-//    base_path.append(".txt");
-//    Pattern pattern = read_pattern(base_path.c_str(), width, height, BOX_DX, BOX_DY);
-    string file = "patterns/map3.txt";
-    Pattern pattern = read_pattern(file.c_str(), width, height, BOX_DX, BOX_DY, true);
-    
+    Pattern pattern;
+    string base_path = "patterns/map";
+    base_path.append(to_string(p));
+    base_path.append(".txt");
+    if(p != 3){
+        pattern = read_pattern(base_path.c_str(), width, height, BOX_DX, BOX_DY);
+    } else {
+        pattern = read_pattern(base_path.c_str(), width, height, BOX_DX, BOX_DY, true);
+    }
     
     for (auto f_box : pattern.fragile_boxes)
     {
