@@ -90,7 +90,8 @@ int SetFireInterval(WeaponType w)
 //         break;
 //     }
 // }
-Pattern read_pattern(const char *file, int w, int h, int dx, int dy, bool is_special){
+Pattern read_pattern(const char *file, int w, int h, int dx, int dy, bool is_special)
+{
     string line;
     ifstream my_read_file(file);
     Pattern pattern;
@@ -117,7 +118,6 @@ Pattern read_pattern(const char *file, int w, int h, int dx, int dy, bool is_spe
     }
     return pattern;
 }
-
 
 Pattern read_pattern(const char *file, int w, int h, int dx, int dy)
 {

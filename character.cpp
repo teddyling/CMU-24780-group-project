@@ -20,10 +20,12 @@ Character::Character()
     height = 25.0;
     drawCharacterSize = 50.0;
     drawSplashSize = 30.0;
+    inkRecoverSpeed = 0.5;
     speed = 3.0;
     rotateSpeed = 3.0;
     health = 100.0;
     inkMount = 100.0;
+    fireReqInk = 20.0;
     isAlive = true;
     isSwim = false;
     theta = 0.0;
@@ -499,7 +501,7 @@ void Character::Swim(const GLubyte color_map[])
     // refill ink while swim
     if (isSwim)
     {
-        ChangeInk(1.0);
+        ChangeInk(inkRecoverSpeed);
     }
 }
 
@@ -508,14 +510,13 @@ bool Character::Fire()
 {
     bool isFire = false;
     // TODO: get require ink mount for each fire from the weapon
-    double reqInk = 5.0;
     int pressFire = FsGetKeyState(keyFire);
     if (pressFire == 1 && fireCoolTime <= 0 && inkMount > 0 && !isSwim)
     {
         // TODO: fire at a certain angle
         isFire = true;
         fireCoolTime = totalFireCoolTime;
-        ChangeInk(-reqInk);
+        ChangeInk(-fireReqInk);
     }
     else if (fireCoolTime > 0)
     {

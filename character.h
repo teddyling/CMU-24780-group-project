@@ -18,6 +18,8 @@ protected:
     int orientation;
     double speed;
     double rotateSpeed;
+    double fireReqInk;
+    double inkRecoverSpeed;
     double drawCharacterSize, drawSplashSize;
     int keyUp, keyDown, keyLeft, keyRight, keyFire, keySwim, keyRotate, keyRotateCounter;
 
