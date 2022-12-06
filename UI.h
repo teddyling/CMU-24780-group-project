@@ -74,6 +74,8 @@ public:
 	double p1Ratio = 0;
 	double p2Ratio = 0;
 	int gameTime = 20;
+	int player1Color;
+	int player2Color;
 	int timeLeft;
 	InGameUI() {};
 	void drawBarFrame();

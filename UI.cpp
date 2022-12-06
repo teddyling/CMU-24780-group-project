@@ -476,14 +476,56 @@ void InGameUI::drawHealthandInk()
 	glVertex2d(490.0 + play2InkConv, 105.0);
 	glVertex2d(490.0, 105.0);
 	glEnd();
-	glColor3ub(0, 0, 255);
+	//glColor3ub(0, 0, 255);
+	if (player1Color == 0) {
+		glColor3ub(255, 0, 0);
+	}
+	else if (player1Color == 1) {
+		glColor3ub(0, 255, 255);
+	}
+	else if (player1Color == 2) {
+		glColor3ub(255, 255, 0);
+	}
+	else if (player1Color == 3) {
+		glColor3ub(0, 255, 0);
+	}
+	else if (player1Color == 4) {
+		glColor3ub(0, 0, 255);
+	}
+	else if (player1Color == 5) {
+		glColor3ub(255, 0, 255);
+	}
+	else {
+		glColor3ub(0, 0, 0);
+	}
 	glBegin(GL_QUADS);
 	glVertex2d(60.0, 125.0);
 	glVertex2d(60.0 + p1RatioConv, 125.0);
 	glVertex2d(60.0 + p1RatioConv, 155.0);
 	glVertex2d(60.0, 155.0);
 	glEnd();
-	glColor3ub(255, 0, 0);
+	//glColor3ub(255, 0, 0);
+	if (player2Color == 0) {
+		glColor3ub(255, 0, 0);
+	}
+	else if (player2Color == 1) {
+		glColor3ub(0, 255, 255);
+	}
+	else if (player2Color == 2) {
+		glColor3ub(255, 255, 0);
+	}
+	else if (player2Color == 3) {
+		glColor3ub(0, 255, 0);
+	}
+	else if (player2Color == 4) {
+		glColor3ub(0, 0, 255);
+	}
+	else if (player2Color == 5) {
+		glColor3ub(255, 0, 255);
+	}
+	else {
+		glColor3ub(0, 0, 0);
+	}
 	glBegin(GL_QUADS);
 	glVertex2d(760.0, 125.0);
 	glVertex2d(760.0 - p2RatioConv, 125.0);

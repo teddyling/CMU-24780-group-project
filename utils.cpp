@@ -37,7 +37,7 @@ void SetColor(ColorType c, int &r, int &g, int &b)
         break;
     case YELLOW:
         r = 255;
-        g = 155;
+        g = 255;
         b = 0;
         break;
     case GREEN:

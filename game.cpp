@@ -82,7 +82,8 @@ Ingame_msg ingame(Pregame_msg msg)
     SetColor(msg.color1, colorR1, colorG1, colorB1);
     SetColor(msg.color2, colorR2, colorG2, colorB2);
     InGameUI ingameui;
-
+    ingameui.player1Color = (int)msg.color1;
+    ingameui.player2Color = (int)msg.color2;
     Ingame_msg ingame_msg;
     FsChangeToProgramDir();
     // setup map
