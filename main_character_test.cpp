@@ -65,15 +65,15 @@ void RunGame()
         FsSleep(25);
     }
 }
-
-int main(void)
-{
-    // Set random seed
-    srand(time(NULL));
-    FsOpenWindow(16, 16, WINDOW_WIDTH, WINDOW_HEIGHT, 1);
-    glShadeModel(GL_SMOOTH);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable(GL_BLEND);
-    RunGame();
-    return 0;
-}
+//
+//int main(void)
+//{
+//    // Set random seed
+//    srand(time(NULL));
+//    FsOpenWindow(16, 16, WINDOW_WIDTH, WINDOW_HEIGHT, 1);
+//    glShadeModel(GL_SMOOTH);
+//    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//    glEnable(GL_BLEND);
+//    RunGame();
+//    return 0;
+//}

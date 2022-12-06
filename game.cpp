@@ -184,6 +184,7 @@ Ingame_msg ingame(Pregame_msg msg)
         ingameui.player1Ink = player1.inkMount;
         ingameui.player2Ink = player2.inkMount;
 
+
         map.read_floor();
 
         // Draw objects
@@ -202,6 +203,9 @@ Ingame_msg ingame(Pregame_msg msg)
         // glReadPixels(0, 0, 800, 600, GL_RGB, GL_UNSIGNED_BYTE, &color);
         auto ratio = map.game_summary({colorR1, colorG1, colorB1}, {colorR2, colorG2, colorB2});
         printf("color1 : %f, color2 : %f\n", ratio.first, ratio.second);
+
+        ingameui.p1Ratio = ratio.first;
+        ingameui.p2Ratio = ratio.second;
 
         map.draw();
         player1.Draw();

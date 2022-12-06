@@ -508,12 +508,14 @@ int InGameUI::checkTime()
 }
 
 /////////////// PostGameUI /////////////
-PostGameUI::PostGameUI(double p1r, double p2r, int p1d, int p2d)
+PostGameUI::PostGameUI(double p1r, double p2r, int p1d, int p2d, int p1Dth, int p2Dth)
 {
 	p1Ratio = p1r;
 	p2Ratio = p2r;
 	p1Demage = p1d;
 	p2Demage = p2d;
+	p1Death = p1Dth;
+	p2Death = p2Dth;
 }
 void PostGameUI::drawWinner()
 {
