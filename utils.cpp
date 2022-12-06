@@ -68,11 +68,11 @@ int SetFireInterval(WeaponType w)
     switch (w)
     {
     case SHOTGUN:
-        return 20;
+        return 50;
     case SNIPER:
-        return 60;
+        return 30;
     case GRENADE:
-        return 80;
+        return 70;
     }
     return 10;
 }
