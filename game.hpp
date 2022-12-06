@@ -4,7 +4,6 @@
 // TODO: fill color and weapon
 #include "utils.hpp"
 
-
 class Pregame_msg
 {
 public:

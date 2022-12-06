@@ -48,6 +48,7 @@ struct Pattern
 void load_png(YsRawPngDecoder &png, const char *file_path);
 void draw_png(YsRawPngDecoder &png, int x, int y);
 Pattern read_pattern(const char *file, int w, int h, int dx, int dy);
+Pattern read_pattern(const char *file, int w, int h, int dx, int dy, bool is_special);
 bool collision(double xPosNew, double yPosNew, double width, double height, int obs_X, int obs_Y, int obs_Dx, int obs_Dy);
 
 void SetColor(ColorType c, int &r, int &g, int &b);

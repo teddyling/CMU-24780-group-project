@@ -87,7 +87,7 @@ Ingame_msg ingame(Pregame_msg msg)
     Ingame_msg ingame_msg;
     FsChangeToProgramDir();
     // setup map
-    Map map = Map(800, 600, 1);
+    Map map = Map(800, 600, msg.map_no+1);
 
     Character player1;
     Character player2;
@@ -166,6 +166,7 @@ Ingame_msg ingame(Pregame_msg msg)
         bool isFire2 = player2.Step(player1, map, im2);
         weapon1->update(im1);
         weapon2->update(im2);
+        map.update(ingameui.timeLeft, ingameui.gameTime);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         map.draw_floor();
 
@@ -204,11 +205,10 @@ Ingame_msg ingame(Pregame_msg msg)
 
         // glReadPixels(0, 0, 800, 600, GL_RGB, GL_UNSIGNED_BYTE, &color);
         auto ratio = map.game_summary({colorR1, colorG1, colorB1}, {colorR2, colorG2, colorB2});
-        printf("color1 : %f, color2 : %f\n", ratio.first, ratio.second);
+//        printf("color1 : %f, color2 : %f\n", ratio.first, ratio.second);
 
         ingameui.p1Ratio = ratio.first * 100.0;
         ingameui.p2Ratio = ratio.second * 100.0;
-
         map.draw();
         player1.Draw();
         player2.Draw();
