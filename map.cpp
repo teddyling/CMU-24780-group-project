@@ -130,8 +130,8 @@ void Map::load_pattern(int p)
     }
 }
 
-void Map::update(int time_left) {
-    if(time_left != ITEM_TIME) {
+void Map::update(int time_left, int game_time) {
+    if(time_left != (game_time/2)) {
         return;
     }
     for(auto item : Items){

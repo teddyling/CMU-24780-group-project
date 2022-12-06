@@ -98,7 +98,7 @@ public:
     void load_pattern(int p);
     void draw_floor();
     void read_floor();
-    void update(int);
+    void update(int, int);
     pair<double, double> game_summary(vector<int> c1, vector<int> c2);
     vector<Obstacle *> Obstacles;
     vector<Enhancement *> Items;

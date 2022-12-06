@@ -86,7 +86,7 @@ Ingame_msg ingame(Pregame_msg msg)
     Ingame_msg ingame_msg;
     FsChangeToProgramDir();
     // setup map
-    Map map = Map(800, 600, msg.map_no);
+    Map map = Map(800, 600, msg.map_no+1);
 
     Character player1;
     Character player2;
@@ -165,7 +165,7 @@ Ingame_msg ingame(Pregame_msg msg)
         bool isFire2 = player2.Step(player1, map, im2);
         weapon1->update(im1);
         weapon2->update(im2);
-        map.update(ingameui.timeLeft);
+        map.update(ingameui.timeLeft, ingameui.gameTime);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         map.draw_floor();
 
