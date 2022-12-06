@@ -244,6 +244,8 @@ void postgame(Ingame_msg ingame_msg)
         }
         postui.drawWinner();
         postui.drawStats();
+        FsSwapBuffers();
+        FsSleep(20);
     }
 }
 // Ingame_msg ingame(Pregame_msg msg)
