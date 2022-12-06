@@ -53,4 +53,6 @@ bool collision(double xPosNew, double yPosNew, double width, double height, int 
 
 void SetColor(ColorType c, int &r, int &g, int &b);
 int SetFireInterval(WeaponType w);
+int GetFireInterval(WeaponType w);
+int GetFireReqInk(WeaponType w);
 #endif /* utils_hpp */

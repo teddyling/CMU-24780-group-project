@@ -20,7 +20,7 @@ Character::Character()
     height = 25.0;
     drawCharacterSize = 50.0;
     drawSplashSize = 30.0;
-    inkRecoverSpeed = 0.5;
+    inkRecoverSpeed = 1.0;
     speed = 3.0;
     rotateSpeed = 3.0;
     health = 100.0;
@@ -62,6 +62,8 @@ void Character::SetKey(const int keys[])
 // Set the control keys for the character: [Up, Left, Down, Right, Fire, Swim, Rotate, RotateCounter]
 void Character::SetWeapon(int playerId, WeaponType weaponType)
 {
+    totalFireCoolTime = GetFireInterval(weaponType);
+    fireReqInk = GetFireReqInk(weaponType);
     if (playerId == 1)
     {
         if (weaponType == SHOTGUN)
@@ -144,8 +146,9 @@ void Character::SetSplash()
 }
 
 // Set the initial position of the character
-void Character::SetPos(double x0, double y0)
+void Character::SetPos(double x0, double y0, double t)
 {
+    theta = t;
     xPos = x0;
     yPos = y0;
     xPosInit = x0;

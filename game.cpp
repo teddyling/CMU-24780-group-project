@@ -18,7 +18,8 @@ Pregame_msg pregame()
     FsChangeToProgramDir();
     YsSoundPlayer player;
     YsSoundPlayer::SoundData wav;
-    if (YSOK != wav.LoadWav("music/pregame.wav")) {
+    if (YSOK != wav.LoadWav("music/pregame.wav"))
+    {
         printf("Failed to load pregame.wav\n");
     }
 
@@ -35,7 +36,7 @@ Pregame_msg pregame()
         FsPollDevice();
         if (FsInkey() == FSKEY_ESC)
         {
-            break;
+            exit(0);
         }
         glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
         int mouseEvent = FsGetMouseEvent(lb, mb, rb, mx, my);
@@ -52,7 +53,7 @@ Pregame_msg pregame()
             }
             if (startpage.endButton->checkButtonClick(lb, mb, rb, mx, my, mouseEvent))
             {
-                break;
+                exit(0);
             }
         }
         // In pregame UI
@@ -99,7 +100,7 @@ Ingame_msg ingame(Pregame_msg msg)
     Ingame_msg ingame_msg;
     FsChangeToProgramDir();
     // setup map
-    Map map = Map(800, 600, msg.map_no+1);
+    Map map = Map(800, 600, msg.map_no + 1);
 
     Character player1;
     Character player2;
@@ -148,17 +149,22 @@ Ingame_msg ingame(Pregame_msg msg)
     // Weapon_Sniper weapon2;
     // Weapon_Grenade weapon3;
     // set players initial positions
-    player1.SetPos(100, 500);
-    player2.SetPos(600, 500);
-
-    player1.SetFireInterval(SetFireInterval(msg.weapon1));
-    player2.SetFireInterval(SetFireInterval(msg.weapon2));
+    player1.SetPos(100, 500, 0);
+    if (msg.map_no == 2)
+    {
+        player2.SetPos(600, 500, 180);
+    }
+    else
+    {
+        player2.SetPos(700, 500, 180);
+    }
 
     // play
     const int tmp = 800 * 600 * 3;
     int pixels[tmp];
     bool isBuffer = false;
-    //GLubyte color[3 * 800 * 800];
+    // GLubyte color[3 * 800 * 800];
+    double ratio1 = 0.0, ratio2 = 0.0;
 
     bool isFire1, isFire2;
     Item_mode im1, im2;
@@ -168,7 +174,8 @@ Ingame_msg ingame(Pregame_msg msg)
     // glGetIntergv(GL_CURREN)
     YsSoundPlayer inGamePlayer;
     YsSoundPlayer::SoundData wav1;
-    if (YSOK != wav1.LoadWav("music/ingame.wav")) {
+    if (YSOK != wav1.LoadWav("music/ingame.wav"))
+    {
         printf("Failed to load ingame.wav\n");
     }
     inGamePlayer.Start();
@@ -179,6 +186,12 @@ Ingame_msg ingame(Pregame_msg msg)
         if (FsInkey() == FSKEY_ESC)
         {
             inGamePlayer.End();
+            ingame_msg.color1_ratio = ratio1 * 100.0;
+            ingame_msg.color2_ratio = ratio2 * 100.0;
+            ingame_msg.death1 = player1.deathNum;
+            ingame_msg.death2 = player2.deathNum;
+            ingame_msg.damage1 = player2.takeDamage;
+            ingame_msg.damage2 = player1.takeDamage;
             return ingame_msg;
         }
 
@@ -207,7 +220,6 @@ Ingame_msg ingame(Pregame_msg msg)
         ingameui.player1Ink = player1.inkMount;
         ingameui.player2Ink = player2.inkMount;
 
-
         map.read_floor();
 
         // Draw objects
@@ -224,11 +236,17 @@ Ingame_msg ingame(Pregame_msg msg)
         // save buffer
 
         // glReadPixels(0, 0, 800, 600, GL_RGB, GL_UNSIGNED_BYTE, &color);
-        auto ratio = map.game_summary({colorR1, colorG1, colorB1}, {colorR2, colorG2, colorB2});
-//        printf("color1 : %f, color2 : %f\n", ratio.first, ratio.second);
+        if (isFire1 || isFire2)
+        {
+            auto ratio = map.game_summary({colorR1, colorG1, colorB1}, {colorR2, colorG2, colorB2});
+            ratio1 = ratio.first;
+            ratio2 = ratio.second;
+        }
 
-        ingameui.p1Ratio = ratio.first * 100.0;
-        ingameui.p2Ratio = ratio.second * 100.0;
+        //        printf("color1 : %f, color2 : %f\n", ratio.first, ratio.second);
+
+        ingameui.p1Ratio = ratio1 * 100.0;
+        ingameui.p2Ratio = ratio2 * 100.0;
         map.draw();
         player1.Draw();
         player2.Draw();
@@ -243,8 +261,8 @@ Ingame_msg ingame(Pregame_msg msg)
         ingameui.drawTimer(startTime);
         if (ingameui.checkTime())
         {
-            ingame_msg.color1_ratio = ratio.first * 100.0;
-            ingame_msg.color2_ratio = ratio.second * 100.0;
+            ingame_msg.color1_ratio = ratio1 * 100.0;
+            ingame_msg.color2_ratio = ratio2 * 100.0;
             ingame_msg.death1 = player1.deathNum;
             ingame_msg.death2 = player2.deathNum;
             ingame_msg.damage1 = player2.takeDamage;
@@ -263,13 +281,15 @@ void postgame(Ingame_msg ingame_msg)
 {
     YsSoundPlayer player;
     YsSoundPlayer::SoundData wav;
-    if (YSOK != wav.LoadWav("music/postgame.wav")) {
+    if (YSOK != wav.LoadWav("music/postgame.wav"))
+    {
         printf("Failed to load postgame.wav\n");
     }
     PostGameUI postui = PostGameUI(ingame_msg.color1_ratio, ingame_msg.color2_ratio, (int)ingame_msg.damage1, (int)ingame_msg.damage2, ingame_msg.death1, ingame_msg.death2);
     player.Start();
     player.PlayOneShot(wav);
-    while (true) {
+    while (true)
+    {
         FsPollDevice();
         if (FsInkey() == FSKEY_ESC)
         {

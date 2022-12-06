@@ -68,6 +68,33 @@ int SetFireInterval(WeaponType w)
     switch (w)
     {
     case SHOTGUN:
+        return 10;
+    case SNIPER:
+        return 10;
+    case GRENADE:
+        return 10;
+    }
+    return 10;
+}
+
+int GetFireInterval(WeaponType w)
+{
+    switch (w)
+    {
+    case SHOTGUN:
+        return 30;
+    case SNIPER:
+        return 20;
+    case GRENADE:
+        return 50;
+    }
+    return 10;
+}
+int GetFireReqInk(WeaponType w)
+{
+    switch (w)
+    {
+    case SHOTGUN:
         return 50;
     case SNIPER:
         return 30;

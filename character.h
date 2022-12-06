@@ -58,7 +58,7 @@ public:
     bool Step(Character &player2, Map &map);
     void Draw();
     void SetKey(const int[]);
-    void SetPos(double x, double y);
+    void SetPos(double x, double y, double t);
     void SetColor(int r, int g, int b);
     void ChangeHealth(double x);
     void Enhance(int type, double value);
