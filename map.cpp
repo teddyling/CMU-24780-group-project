@@ -142,6 +142,11 @@ void Map::draw_floor()
 {
     if (is_buffer)
     {
+        // glMatrixMode(GL_PROJECTION);
+        // glLoadIdentity();
+        // gluOrtho2D(0.0, (GLfloat)-800, 0.0, (GLfloat)800);
+        // glMatrixMode(GL_MODELVIEW);
+        // glLoadIdentity();
         glWindowPos2i(0, 0);
         glDrawPixels(800, 600, GL_RGB, GL_UNSIGNED_BYTE, &color_map);
     }

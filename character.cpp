@@ -16,10 +16,12 @@ const double Pi = 3.1415926;
 
 Character::Character()
 {
-    printf("default constructer\n");
-    width = 30.0;
-    height = 30.0;
-    speed = 2.0;
+    width = 25.0;
+    height = 25.0;
+    drawCharacterSize = 50.0;
+    drawSplashSize = 30.0;
+    speed = 3.0;
+    rotateSpeed = 3.0;
     health = 100.0;
     inkMount = 100.0;
     isAlive = true;
@@ -32,7 +34,6 @@ Character::Character()
     swimCoolTime = 0;
     totalSwimCoolTime = 5;
     takeDamage = 0.0;
-    rotateSpeed = 2.0;
     deathNum = 0;
     SetSplash();
     deadPlayer.MakeCurrent();
@@ -160,6 +161,7 @@ void Character::Draw()
 {
     double angle;
     double angleDraw;
+    double size;
     if (isAlive && !isSwim)
     {
         // glColor3ub(0, 0, 0);
@@ -175,29 +177,29 @@ void Character::Draw()
 
         // if character is alive, draw the character and fire angle
         glLineWidth(1.0);
-        if (isSwim)
-        {
-            glColor3ub(0.8 * colorR, 0.8 * colorG, 0.8 * colorB);
-        }
-        else
-        {
-            glColor3ub(colorR, colorG, colorB);
-        }
-        glBegin(GL_QUADS);
-        glVertex2d(xPos - width / 2, yPos - height / 2);
-        glVertex2d(xPos + width / 2, yPos - height / 2);
-        glVertex2d(xPos + width / 2, yPos + height / 2);
-        glVertex2d(xPos - width / 2, yPos + height / 2);
-        glEnd();
+        // if (isSwim)
+        // {
+        //     glColor3ub(0.8 * colorR, 0.8 * colorG, 0.8 * colorB);
+        // }
+        // else
+        // {
+        //     glColor3ub(colorR, colorG, colorB);
+        // }
+        // glBegin(GL_QUADS);
+        // glVertex2d(xPos - width / 2, yPos - height / 2);
+        // glVertex2d(xPos + width / 2, yPos - height / 2);
+        // glVertex2d(xPos + width / 2, yPos + height / 2);
+        // glVertex2d(xPos - width / 2, yPos + height / 2);
+        // glEnd();
 
         // draw bbox
-        glColor3ub(0, 0, 0);
-        glBegin(GL_LINE_LOOP);
-        glVertex2d(xPos - width / 2, yPos - height / 2);
-        glVertex2d(xPos + width / 2, yPos - height / 2);
-        glVertex2d(xPos + width / 2, yPos + height / 2);
-        glVertex2d(xPos - width / 2, yPos + height / 2);
-        glEnd();
+        // glColor3ub(0, 0, 0);
+        // glBegin(GL_LINE_LOOP);
+        // glVertex2d(xPos - width / 2, yPos - height / 2);
+        // glVertex2d(xPos + width / 2, yPos - height / 2);
+        // glVertex2d(xPos + width / 2, yPos + height / 2);
+        // glVertex2d(xPos - width / 2, yPos + height / 2);
+        // glEnd();
 
         // draw aiming angle
         angle = theta / 180 * Pi;
@@ -227,18 +229,19 @@ void Character::Draw()
         // glVertex2d(xPos - width / 2, yPos + height / 2);
 
         angleDraw = -angle + 3 * Pi / 4.0;
+        size = drawCharacterSize;
 
         glTexCoord2d(0.0, 0.0); // For each vertex, assign texture coordinate before vertex coordinate.
-        glVertex2d(xPos + width * cos(angleDraw), yPos - height * sin(angleDraw));
+        glVertex2d(xPos + size * cos(angleDraw), yPos - size * sin(angleDraw));
 
         glTexCoord2d(1.0, 0.0);
-        glVertex2d(xPos + width * cos(angleDraw + Pi / 2.0), yPos - height * sin(angleDraw + Pi / 2.0));
+        glVertex2d(xPos + size * cos(angleDraw + Pi / 2.0), yPos - size * sin(angleDraw + Pi / 2.0));
 
         glTexCoord2d(1.0, 1.0);
-        glVertex2d(xPos + width * cos(angleDraw + Pi), yPos - height * sin(angleDraw + Pi));
+        glVertex2d(xPos + size * cos(angleDraw + Pi), yPos - size * sin(angleDraw + Pi));
 
         glTexCoord2d(0.0, 1.0);
-        glVertex2d(xPos + width * cos(angleDraw - Pi / 2.0), yPos - height * sin(angleDraw - Pi / 2.0));
+        glVertex2d(xPos + size * cos(angleDraw - Pi / 2.0), yPos - size * sin(angleDraw - Pi / 2.0));
 
         glEnd();
 
@@ -260,18 +263,19 @@ void Character::Draw()
         glBegin(GL_QUADS);
 
         angleDraw = -3 * Pi / 4.0;
+        size = drawSplashSize;
 
         glTexCoord2d(0.0, 0.0); // For each vertex, assign texture coordinate before vertex coordinate.
-        glVertex2d(xPos + width * cos(angleDraw), yPos - height * sin(angleDraw));
+        glVertex2d(xPos + size * cos(angleDraw), yPos - size * sin(angleDraw));
 
         glTexCoord2d(1.0, 0.0);
-        glVertex2d(xPos + width * cos(angleDraw + Pi / 2.0), yPos - height * sin(angleDraw + Pi / 2.0));
+        glVertex2d(xPos + size * cos(angleDraw + Pi / 2.0), yPos - size * sin(angleDraw + Pi / 2.0));
 
         glTexCoord2d(1.0, 1.0);
-        glVertex2d(xPos + width * cos(angleDraw + Pi), yPos - height * sin(angleDraw + Pi));
+        glVertex2d(xPos + size * cos(angleDraw + Pi), yPos - size * sin(angleDraw + Pi));
 
         glTexCoord2d(0.0, 1.0);
-        glVertex2d(xPos + width * cos(angleDraw - Pi / 2.0), yPos - height * sin(angleDraw - Pi / 2.0));
+        glVertex2d(xPos + size * cos(angleDraw - Pi / 2.0), yPos - size * sin(angleDraw - Pi / 2.0));
 
         glEnd();
 
@@ -593,7 +597,7 @@ bool Character::CanSwim(double x, double y, const GLubyte color_map[])
     int r = color_map[3 * idx];
     int g = color_map[3 * idx + 1];
     int b = color_map[3 * idx + 2];
-    printf("%d, %d, %d - %d, %d, %d\n", colorR, colorG, colorB, r, g, b);
+    // printf("%d, %d, %d - %d, %d, %d\n", colorR, colorG, colorB, r, g, b);
     return int(r) == colorR && int(g) == colorG && int(b) == colorB;
 };
 
