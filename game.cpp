@@ -15,6 +15,7 @@ Pregame_msg pregame()
     StartingPage startpage = StartingPage();
     PreGameUI pregameui = PreGameUI();
     Pregame_msg pregamemsg;
+    FsChangeToProgramDir();
     YsSoundPlayer player;
     YsSoundPlayer::SoundData wav;
     if (YSOK != wav.LoadWav("music/pregame.wav")) {
@@ -76,7 +77,7 @@ Pregame_msg pregame()
                 return pregamemsg;
             }
         }
-        player.KeepPlaying(wav);
+        player.KeepPlaying();
         FsSwapBuffers();
         FsSleep(20);
     }
@@ -85,7 +86,7 @@ Pregame_msg pregame()
 }
 
 Ingame_msg ingame(Pregame_msg msg)
-
+{
     time_t startTime = time(NULL);
 
     int colorR1, colorG1, colorB1;
@@ -166,12 +167,12 @@ Ingame_msg ingame(Pregame_msg msg)
     // GLint windpos[2];
     // glGetIntergv(GL_CURREN)
     YsSoundPlayer inGamePlayer;
-    YsSoundPlayer::SoundData wav;
-    if (YSOK != wav.Loadwav("music/ingame.wav")) {
+    YsSoundPlayer::SoundData wav1;
+    if (YSOK != wav1.LoadWav("music/ingame.wav")) {
         printf("Failed to load ingame.wav\n");
     }
     inGamePlayer.Start();
-    inGamePlayer.PlayOneShot(wav)
+    inGamePlayer.PlayOneShot(wav1);
     while (true)
     {
         FsPollDevice();
@@ -262,7 +263,7 @@ void postgame(Ingame_msg ingame_msg)
 {
     YsSoundPlayer player;
     YsSoundPlayer::SoundData wav;
-    if (YSOK != wav.Loadwav("music/postgame.wav")) {
+    if (YSOK != wav.LoadWav("music/postgame.wav")) {
         printf("Failed to load postgame.wav\n");
     }
     PostGameUI postui = PostGameUI(ingame_msg.color1_ratio, ingame_msg.color2_ratio, (int)ingame_msg.damage1, (int)ingame_msg.damage2, ingame_msg.death1, ingame_msg.death2);
