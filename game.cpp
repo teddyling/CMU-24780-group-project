@@ -70,6 +70,7 @@ Pregame_msg pregame()
         FsSwapBuffers();
         FsSleep(20);
     }
+    return pregamemsg;
 }
 
 Ingame_msg ingame(Pregame_msg msg)
@@ -204,8 +205,8 @@ Ingame_msg ingame(Pregame_msg msg)
         auto ratio = map.game_summary({colorR1, colorG1, colorB1}, {colorR2, colorG2, colorB2});
         printf("color1 : %f, color2 : %f\n", ratio.first, ratio.second);
 
-        ingameui.p1Ratio = ratio.first;
-        ingameui.p2Ratio = ratio.second;
+        ingameui.p1Ratio = ratio.first * 100.0;
+        ingameui.p2Ratio = ratio.second * 100.0;
 
         map.draw();
         player1.Draw();
@@ -221,8 +222,8 @@ Ingame_msg ingame(Pregame_msg msg)
         ingameui.drawTimer(startTime);
         if (ingameui.checkTime())
         {
-            ingame_msg.color1_ratio = ratio.first;
-            ingame_msg.color2_ratio = ratio.second;
+            ingame_msg.color1_ratio = ratio.first * 100.0;
+            ingame_msg.color2_ratio = ratio.second * 100.0;
             ingame_msg.death1 = player1.deathNum;
             ingame_msg.death2 = player2.deathNum;
             ingame_msg.damage1 = player2.takeDamage;
@@ -239,6 +240,7 @@ Ingame_msg ingame(Pregame_msg msg)
 }
 void postgame(Ingame_msg ingame_msg)
 {
+    
     PostGameUI postui = PostGameUI(ingame_msg.color1_ratio, ingame_msg.color2_ratio, (int)ingame_msg.damage1, (int)ingame_msg.damage2, ingame_msg.death1, ingame_msg.death2);
     while (true) {
         FsPollDevice();
@@ -246,6 +248,7 @@ void postgame(Ingame_msg ingame_msg)
         {
             return;
         }
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         postui.drawWinner();
         postui.drawStats();
         FsSwapBuffers();
