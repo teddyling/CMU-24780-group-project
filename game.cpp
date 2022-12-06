@@ -144,7 +144,7 @@ Ingame_msg ingame(Pregame_msg msg)
     const int tmp = 800 * 600 * 3;
     int pixels[tmp];
     bool isBuffer = false;
-    GLubyte color[3 * 800 * 800];
+    //GLubyte color[3 * 800 * 800];
 
     bool isFire1, isFire2;
     Item_mode im1, im2;
@@ -235,6 +235,16 @@ Ingame_msg ingame(Pregame_msg msg)
 }
 void postgame(Ingame_msg ingame_msg)
 {
+    PostGameUI postui = PostGameUI(ingame_msg.color1_ratio, ingame_msg.color2_ratio, (int)ingame_msg.damage1, (int)ingame_msg.damage2, ingame_msg.death1, ingame_msg.death2);
+    while (true) {
+        FsPollDevice();
+        if (FsInkey() == FSKEY_ESC)
+        {
+            return;
+        }
+        postui.drawWinner();
+        postui.drawStats();
+    }
 }
 // Ingame_msg ingame(Pregame_msg msg)
 // {

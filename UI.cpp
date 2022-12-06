@@ -393,6 +393,14 @@ void InGameUI::drawBarFrame()
 	glVertex2i(740, 105);
 	glVertex2i(490, 105);
 	glEnd();
+	// Ratio Bar
+	glBegin(GL_LINE_LOOP);
+	glVertex2i(60, 125);
+	glVertex2i(760, 125);
+	glVertex2i(760, 155);
+	glVertex2i(60, 155);
+	glEnd();
+
 	glColor3ub(204, 0, 0);
 	glRasterPos2d(10, 55);
 	YsGlDrawFontBitmap20x28("HP");
@@ -405,6 +413,9 @@ void InGameUI::drawBarFrame()
 	glColor3ub(0, 0, 204);
 	glRasterPos2d(745, 100);
 	YsGlDrawFontBitmap16x24("INK");
+	glColor3ub(0, 0, 0);
+	glRasterPos2d(5, 145);
+	YsGlDrawFontBitmap16x24("R.O");
 }
 void InGameUI::drawTimer(int startTime)
 {
@@ -434,6 +445,9 @@ void InGameUI::drawHealthandInk()
 	double player2HPConv = ((double)player2HP / 100.0) * 250;
 	double play1InkConv = ((double)player1Ink / 100.0) * 250;
 	double play2InkConv = ((double)player2Ink / 100.0) * 250;
+	double p1RatioConv = p1Ratio * 7.0;
+	double p2RatioConv = p2Ratio * 7.0;
+
 	glColor3ub(255, 0, 0);
 	glBegin(GL_QUADS);
 	glVertex2d(60.0, 25.0);
@@ -461,6 +475,20 @@ void InGameUI::drawHealthandInk()
 	glVertex2d(490.0 + play2InkConv, 75.0);
 	glVertex2d(490.0 + play2InkConv, 105.0);
 	glVertex2d(490.0, 105.0);
+	glEnd();
+	glColor3ub(0, 0, 255);
+	glBegin(GL_QUADS);
+	glVertex2d(60.0, 125.0);
+	glVertex2d(60.0 + p1RatioConv, 125.0);
+	glVertex2d(60.0 + p1RatioConv, 155.0);
+	glVertex2d(60.0, 155.0);
+	glEnd();
+	glColor3ub(255, 0, 0);
+	glBegin(GL_QUADS);
+	glVertex2d(760.0, 125.0);
+	glVertex2d(760.0 - p2RatioConv, 125.0);
+	glVertex2d(760.0 - p2RatioConv, 155.0);
+	glVertex2d(760.0, 155.0);
 	glEnd();
 }
 int InGameUI::checkTime()
@@ -505,45 +533,18 @@ void PostGameUI::drawWinner()
 		YsGlDrawFontBitmap32x48("2P !!");
 	}
 }
-void PostGameUI::drawStats()
-{
+void PostGameUI::drawStats() {
 	glColor3ub(0, 0, 0);
 	glRasterPos2d(240, 250);
 	YsGlDrawFontBitmap20x28("Game Statistics");
-	// YSGLDRAW
+
 	glColor3ub(0, 0, 0);
 	glLineWidth(3.0f);
-	glBegin(GL_LINE_STRIP);
+	glBegin(GL_LINE_LOOP);
 	glVertex2i(50, 300);
 	glVertex2i(750, 300);
-	glEnd();
-	glBegin(GL_LINE_STRIP);
-	glVertex2i(50, 300);
-	glVertex2i(50, 600);
-	glEnd();
-	glBegin(GL_LINE_STRIP);
-	glVertex2i(750, 300);
-	glVertex2i(750, 600);
-	glEnd();
-	glBegin(GL_LINE_STRIP);
-	glVertex2i(50, 600);
-	glVertex2i(750, 600);
-	glEnd();
-	glBegin(GL_LINE_STRIP);
-	glVertex2i(50, 400);
-	glVertex2i(750, 400);
-	glEnd();
-	glBegin(GL_LINE_STRIP);
-	glVertex2i(50, 500);
-	glVertex2i(750, 500);
-	glEnd();
-	glBegin(GL_LINE_STRIP);
-	glVertex2i(250, 300);
-	glVertex2i(250, 600);
-	glEnd();
-	glBegin(GL_LINE_STRIP);
-	glVertex2i(500, 300);
-	glVertex2i(500, 600);
+	glVertex2i(750, 700);
+	glVertex2i(50, 700);
 	glEnd();
 	glLineWidth(1.0f);
 	glColor3ub(0, 0, 255);
@@ -558,20 +559,52 @@ void PostGameUI::drawStats()
 	glColor3ub(0, 0, 0);
 	glRasterPos2d(58, 570);
 	YsGlDrawFontBitmap32x48("Damage");
+	glColor3ub(0, 0, 0);
+	glRasterPos2d(63, 670);
+	YsGlDrawFontBitmap32x48("Death");
 	std::stringstream stream1;
 	std::stringstream stream2;
+	std::stringstream stream3;
+	std::stringstream stream4;
+	std::stringstream stream5;
+	std::stringstream stream6;
 	stream1 << std::fixed << std::setprecision(1) << p1Ratio;
 	stream2 << std::fixed << std::setprecision(1) << p2Ratio;
+	stream3 << p1Demage;
+	stream4 << p2Demage;
+	stream5 << p1Death;
+	stream6 << p2Death;
 	string p1AreaString = stream1.str();
 	p1AreaString += "%";
 	string p2AreaString = stream2.str();
 	p2AreaString += "%";
-	const char *p1AreaChar = p1AreaString.c_str();
-	const char *p2AreaChar = p2AreaString.c_str();
+	const char* p1AreaChar = p1AreaString.c_str();
+	const char* p2AreaChar = p2AreaString.c_str();
+	string p1DemageStr = stream3.str();
+	string p2DemageStr = stream4.str();
+	string p1DeathStr = stream5.str();
+	string p2DeathStr = stream6.str();
+	const char* p1DemageChar = p1DemageStr.c_str();
+	const char* p2DemageChar = p2DemageStr.c_str();
+	const char* p1DeathChar = p1DeathStr.c_str();
+	const char* p2DeathChar = p2DeathStr.c_str();
+
 	glColor3ub(0, 0, 255);
 	glRasterPos2d(300, 475);
 	YsGlDrawFontBitmap32x48(p1AreaChar);
 	glColor3ub(255, 0, 0);
 	glRasterPos2d(550, 475);
 	YsGlDrawFontBitmap32x48(p2AreaChar);
+	glColor3ub(0, 0, 255);
+	glRasterPos2d(330, 575);
+	YsGlDrawFontBitmap32x48(p1DemageChar);
+	glColor3ub(255, 0, 0);
+	glRasterPos2d(580, 575);
+	YsGlDrawFontBitmap32x48(p2DemageChar);
+	glColor3ub(0, 0, 255);
+	glRasterPos2d(370, 675);
+	YsGlDrawFontBitmap32x48(p1DeathChar);
+	glColor3ub(255, 0, 0);
+	glRasterPos2d(620, 675);
+	YsGlDrawFontBitmap32x48(p2DeathChar);
 }

@@ -71,6 +71,8 @@ public:
 	int player1Ink = 100;
 	int player2HP = 100;
 	int player2Ink = 100;
+	double p1Ratio = 0;
+	double p2Ratio = 0;
 	int gameTime = 20;
 	int timeLeft;
 	InGameUI() {};
@@ -86,7 +88,9 @@ public:
 	double p2Ratio;
 	int p1Demage;
 	int p2Demage;
-	PostGameUI(double p1r, double p2r, int p1d, int p2d);
+	int p1Death;
+	int p2Death;
+	PostGameUI(double p1r, double p2r, int p1d, int p2d, int p1Dth, int p2Dth);
 
 	void drawWinner();
 	void drawStats();

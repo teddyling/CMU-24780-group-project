@@ -14,6 +14,7 @@ int main(void) {
 
 	auto pregame_message = pregame();
 	auto ingame_message = ingame(pregame_message);
+	postgame(ingame_message);
 
 	
 
