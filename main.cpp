@@ -17,9 +17,6 @@ int main(void) {
 	postgame(ingame_message);
 
 	
-
-
-
 	// int state = 0;
 	// FsOpenWindow(0, 0, 800, 800, 1);
 	// int terminate = 0;

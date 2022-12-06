@@ -90,6 +90,34 @@ int SetFireInterval(WeaponType w)
 //         break;
 //     }
 // }
+Pattern read_pattern(const char *file, int w, int h, int dx, int dy, bool is_special){
+    string line;
+    ifstream my_read_file(file);
+    Pattern pattern;
+
+    while (getline(my_read_file, line))
+    {
+        char c;
+        int x, y;
+        stringstream line_stream(line);
+        line_stream >> c >> x >> y;
+        if (c == 'f')
+        {
+            pattern.fragile_boxes.push_back({x, y});
+        }
+        else if (c == 'h')
+        {
+            // symetrically set box
+            pattern.hard_boxes.push_back({x, y});
+        }
+        else if (c == 'e')
+        {
+            pattern.items.push_back({x, y});
+        }
+    }
+    return pattern;
+}
+
 
 Pattern read_pattern(const char *file, int w, int h, int dx, int dy)
 {

@@ -103,11 +103,14 @@ Map::Map(int w, int h, int p)
 
 void Map::load_pattern(int p)
 {
-    string base_path = "patterns/map";
-    base_path.append(to_string(p));
-    base_path.append(".txt");
-    Pattern pattern = read_pattern(base_path.c_str(), width, height, BOX_DX, BOX_DY);
-
+//    string base_path = "patterns/map";
+//    base_path.append(to_string(p));
+//    base_path.append(".txt");
+//    Pattern pattern = read_pattern(base_path.c_str(), width, height, BOX_DX, BOX_DY);
+    string file = "patterns/map3.txt";
+    Pattern pattern = read_pattern(file.c_str(), width, height, BOX_DX, BOX_DY, true);
+    
+    
     for (auto f_box : pattern.fragile_boxes)
     {
         F_Obstacle *obs = new F_Obstacle(f_box.first, f_box.second);
@@ -123,6 +126,20 @@ void Map::load_pattern(int p)
         Enhancement *en = new Enhancement(item.first, item.second);
         Items.push_back(en);
     }
+}
+
+void Map::update(int time_left) {
+    if(time_left != ITEM_TIME) {
+        return;
+    }
+    for(auto item : Items){
+        if(item -> can_gen){
+            int item_num = rand() % 4 + 1;
+            item -> mode = Item_mode(item_num);
+            item -> can_gen = false;
+        }
+    }
+    return;
 }
 
 void Map::draw()

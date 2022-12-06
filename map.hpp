@@ -9,6 +9,7 @@
 
 #include <stdio.h>
 #include <vector>
+#include <cstdlib>
 #include <ctime>
 #include "yspng.h"
 #include "fssimplewindow.h"
@@ -24,7 +25,7 @@ enum Item_mode
 };
 
 // set const config
-const int BOX_ENDURANCE = 5;
+const int BOX_ENDURANCE = 2;
 const int BOX_DX = 50;
 const int BOX_DY = 50;
 const int ITEM_DX = 40;
@@ -34,6 +35,7 @@ const int MAP_WIDTH = 800;
 const int MAP_HEI = 600;
 const int HEAlTH_REC = 50;
 const int INK_REC = 30;
+const int ITEM_TIME = 10;
 
 class Map_item
 {
@@ -78,10 +80,13 @@ public:
     static YsRawPngDecoder ink_png;
     static YsRawPngDecoder fire_png;
     static YsRawPngDecoder brush_png;
+    bool can_gen = true;
     Enhancement(int x, int y);
-    Item_mode mode = Weapon_attack;
+    void generate_rand_item();
+    Item_mode mode = None;
     void draw();
 };
+
 
 // TODO: Ink mark class
 
@@ -93,6 +98,7 @@ public:
     void load_pattern(int p);
     void draw_floor();
     void read_floor();
+    void update(int);
     pair<double, double> game_summary(vector<int> c1, vector<int> c2);
     vector<Obstacle *> Obstacles;
     vector<Enhancement *> Items;
